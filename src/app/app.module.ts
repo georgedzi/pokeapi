@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import {FusejsModule} from 'angular-fusejs'
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,7 +19,6 @@ import { PokemonsComponent } from './shared/components/pokemons/pokemons.compone
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FusejsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
