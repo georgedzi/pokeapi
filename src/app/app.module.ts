@@ -13,7 +13,7 @@ import { PokemonsComponent } from './shared/components/pokemons/pokemons.compone
     AppComponent,
     HomeComponent,
     PokemonComponent,
-    PokemonsComponent
+    PokemonsComponent,
   ],
   imports: [
     BrowserModule,

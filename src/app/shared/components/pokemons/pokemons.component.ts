@@ -11,7 +11,7 @@ export class PokemonsComponent implements OnInit {
 
   constructor(private pokemonSerive: PokemonService) { }
 
-  pokemons: Pokemon[];
+  public pokemons: Pokemon[];
 
 
   ngOnInit() {

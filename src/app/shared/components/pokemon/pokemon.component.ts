@@ -11,4 +11,8 @@ export class PokemonComponent {
 
   @Input() pokemon: Pokemon;
 
+  styleContainer() {
+    return this.pokemon.palleteColor;
+  }
+
 }
