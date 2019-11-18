@@ -1,2 +1,5 @@
-<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-<app-pokemon *ngFor="let pokemon of pokemons" [pokemon]="pokemon"></app-pokemon>
+<input #searchBox id="search-box" (input)="search(searchBox.value)" class="form-control mr-sm-2" type="search"
+    placeholder="Search" aria-label="Search">
+<div class="grid-container" infinite-scroll (scrolled)="onScrollDown()">
+    <app-pokemon *ngFor="let pokemon of loadPokemon" [pokemon]="pokemon"></app-pokemon>
+</div>

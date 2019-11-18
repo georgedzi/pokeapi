@@ -12,7 +12,6 @@ export class Pokemon {
     pokemon.getId(index);
     pokemon.getImageUrl();
     pokemon.capitilizeName();
-    pokemon.getPrimaryColor();
     return pokemon;
   }
 

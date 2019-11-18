@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './shared/components/home/home.component';
 import { PokemonComponent } from './shared/components/pokemon/pokemon.component';
 import { PokemonsComponent } from './shared/components/pokemons/pokemons.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { PokemonsComponent } from './shared/components/pokemons/pokemons.compone
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    InfiniteScrollModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
