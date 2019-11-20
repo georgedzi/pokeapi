@@ -22,7 +22,7 @@ export class PokemonsComponent implements OnInit {
   private filterPokemon: Pokemon[];
   public loadPokemon: Pokemon[];
   private searchTerms = new Subject<string>();
-  private cutAmount = 21;
+  private cutAmount = 25;
 
   ngOnInit() {
     this.getPokemons();
