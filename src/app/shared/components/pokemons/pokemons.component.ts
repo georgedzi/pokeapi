@@ -18,63 +18,53 @@ export class PokemonsComponent implements OnInit {
 
   constructor(private pokemonSerive: PokemonService) { }
 
-  private pokemons: Pokemon[];
-  private filterPokemon: Pokemon[];
-  public loadPokemon: Pokemon[];
+  private allPokemon: Pokemon[];
+  private fuzzSearchedPokemon: Pokemon[];
+  public displayedPokemon: Pokemon[];
   private searchTerms = new Subject<string>();
-  private cutAmount = 25;
+  private loadPokemonAmount = 25;
 
   ngOnInit() {
     this.getPokemons();
 
-    this.searchTerms.pipe(
+    this.searchTerms
+      .pipe(debounceTime(50))
+      .subscribe((pokemonName) => this.fuzzySearchPokemon(pokemonName))
 
-      debounceTime(500),
-      
-      distinctUntilChanged(),
-
-      switchMap((term: string) => {
-        const searcher = new FuzzySearch(this.pokemons, ['name'], {
-          sort: true
-        });
-
-        this.filterPokemon = searcher.search(term);
-        return this.loadPokemon = this.filterPokemon
-          .slice(0, this.cutAmount)
-          .map(pokemon => { pokemon.getPrimaryColor(); return pokemon });
-      })
-    );
   }
 
-  search(term: string): void {
-    this.searchTerms.next(term);
-    const searcher = new FuzzySearch(this.pokemons, ['name'], {
-      sort: true
-    });
-
-    this.filterPokemon = searcher.search(term);
-    this.loadPokemon = this.filterPokemon
-      .slice(0, this.cutAmount)
-      .map(pokemon => { pokemon.getPrimaryColor(); return pokemon });
+  searchPokemon(pokemonName: string): void {
+    this.searchTerms.next(pokemonName);
   }
 
   getPokemons(): void {
 
     this.pokemonSerive.getPokemons()
       .subscribe(pokemon => {
-        this.pokemons = pokemon;
-        this.filterPokemon = pokemon;
-        this.loadPokemon = pokemon
-          .slice(0, this.cutAmount)
+        this.allPokemon = pokemon;
+        this.fuzzSearchedPokemon = pokemon;
+        this.displayedPokemon = pokemon
+          .slice(0, this.loadPokemonAmount)
           .map(pokemon => { pokemon.getPrimaryColor(); return pokemon });
       });
   }
 
   onScrollDown() {
-    this.loadPokemon = this.loadPokemon
-      .concat(this.filterPokemon
-        .slice(this.loadPokemon.length, this.loadPokemon.length + this.cutAmount)
+    this.displayedPokemon = this.displayedPokemon
+      .concat(this.fuzzSearchedPokemon
+        .slice(this.displayedPokemon.length, this.displayedPokemon.length + this.loadPokemonAmount)
         .map(pokemon => { pokemon.getPrimaryColor(); return pokemon }));
+  }
+
+  fuzzySearchPokemon(pokemonName) {
+    const searcher = new FuzzySearch(this.allPokemon, ['name'], {
+      sort: true
+    });
+
+    this.fuzzSearchedPokemon = searcher.search(pokemonName);
+    this.displayedPokemon = this.fuzzSearchedPokemon
+      .slice(0, this.loadPokemonAmount)
+      .map(pokemon => { pokemon.getPrimaryColor(); return pokemon });
   }
 
 }
