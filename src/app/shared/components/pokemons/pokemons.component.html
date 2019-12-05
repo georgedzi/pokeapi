@@ -1,5 +1,5 @@
 <input #searchBox id="search-box" (input)="searchPokemon(searchBox.value)" class="search-bar" type="search"
     placeholder="Search" aria-label="Search">
-<ol class="grid-container" infinite-scroll (scrolled)="onScrollDown()">
+<ol class="grid-container" infinite-scroll (scrolled)="loadPokemon()">
     <app-pokemon *ngFor="let pokemon of displayedPokemon" [pokemon]="pokemon"></app-pokemon>
 </ol>
